@@ -1,0 +1,33 @@
+[submodule "src/end_effector_control"]
+	path = src/end_effector_control
+	url = git@github.com:dyackzan/end_effector_control.git
+[submodule "src/camera"]
+	path = src/camera
+	url = git@github.com:dyackzan/camera.git
+[submodule "src/franka_ros"]
+	path = src/franka_ros
+	url = git@github.com:dyackzan/franka_ros.git
+[submodule "src/geometric_shapes"]
+	path = src/geometric_shapes
+	url = git@github.com:dyackzan/geometric_shapes.git
+[submodule "src/moveit"]
+	path = src/moveit
+	url = git@github.com:dyackzan/moveit.git
+[submodule "src/moveit_msgs"]
+	path = src/moveit_msgs
+	url = git@github.com:dyackzan/moveit_msgs.git
+[submodule "src/moveit_resources"]
+	path = src/moveit_resources
+	url = git@github.com:dyackzan/moveit_resources.git
+[submodule "src/moveit_tutorials"]
+	path = src/moveit_tutorials
+	url = git@github.com:dyackzan/moveit_tutorials.git
+[submodule "src/moveit_visual_tools"]
+	path = src/moveit_visual_tools
+	url = git@github.com:dyackzan/moveit_visual_tools.git
+[submodule "src/panda_moveit_config"]
+	path = src/panda_moveit_config
+	url = git@github.com:dyackzan/panda_moveit_config.git
+[submodule "src/rviz_visual_tools"]
+	path = src/rviz_visual_tools
+	url = git@github.com:dyackzan/rviz_visual_tools.git
