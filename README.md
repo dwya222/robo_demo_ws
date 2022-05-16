@@ -9,6 +9,7 @@ The ROS packages in the src folder are linked submodules that are also curated o
 ## Installation
 **Note: These instructions assume use of zshell, if you are not using zshell then replace `.zsh` with whatever shell you are using (ex: bash -> `.bash`)**
 ### Versions
+  * Refer to compatibility [chart](https://frankaemika.github.io/docs/compatibility.html)
   * Linux OS: Ubuntu `18.04`
   * ROS: `Melodic`
   * Panda system: `v3.0.0`
@@ -16,6 +17,7 @@ The ROS packages in the src folder are linked submodules that are also curated o
     - Compatable Libfranka and Panda system versions: https://frankaemika.github.io/docs/libfranka_changelog.html
   * MoveIt: `1`
   * Franka Ros: `melodic-devel` branch
+  * Python: Mix of `v2` (for moveit) and `v3` (camera)
 
 ### Install ROS Melodic (for Ubuntu 18.04)
   * Instructions on ROS Wiki: https://wiki.ros.org/melodic/Installation/Ubuntu
@@ -57,12 +59,38 @@ The ROS packages in the src folder are linked submodules that are also curated o
 ## Running the Code
 ### Run the demo in simulation
   1. `roslaunch end_effector_control demo.launch setup:=staged`
-  2. `roslaunch end_effector_control follow_point_subscriber.py`
-  3. `roslaunch camera main.py`
+  1. `roslaunch end_effector_control follow_point_subscriber.py`
+  1. `roslaunch camera main.py`
 ### Run the demo on the real panda bot
-  1. `roslaunch panda_moveit_config`
-  2. `roslaunch end_effector_control follow_point_subscriber.py`
-  3. `roslaunch camera main.py`
+  1. Prerequisites:
+     - April Tag that allows estimation of robot base frame
+     - Object with April tag calibrated, and URDF in ROS
+     - Robot in program-op mode (blue light)
+  1. Start the robot, wait till lights are yellow solid
+  1. Use the browser to  navigate to the Franka control panel
+     - `172.16.0.2/desk/`
+     - firefox may raise security concerns, ok them
+     - Unlock the joints (TODO: image of what we should see?)
+     - Should see the yellow light on Panda turn white
+  1. Hold the trigger (black with gray button) before running the next code
+      - Should see the white light turn blue
+      - This step cannot be done later, failing to do this step prevents robot from moving
+  1. Run the following ROS code in three separate windows, in this order:
+      1. Render the robot in RViz and connect the simulation to the real Panda via the `robot_ip` parameter. \
+      `roslaunch panda_moveit_config panda_control_moveit_rviz.launch robot_ip:=<fci-ip>`
+      we usually pass parameters:
+      `roslaunch panda_moveit_config panda_control_moveit_rviz.launch robot_ip:=<fci-ip> load_gripper:=true setup:=staged`
+      where fci-ip matches the ip from earlier (172.16.0.2)
+          - load_gripper allows finger control
+          - declaring setup as staged makes the grasping occur in two stages.
+      We should see rviz pop-up with the robot visible
+      2. Launch the subscriber node to listen for goal position location messages. \
+      `rosrun end_effector_control follow_point_subscriber.py`
+          - Won't see anything
+      3. Launch the camera node to start publishing goal position locations according to where it sees the box in its workspace. \
+      `rosrun camera main.py`
+          - We will see the block appear in RViz, followed by a movement simulation, followed by actual movement. The RRT may get stuck if the block is not reachable. Moveit may return a trajectory that takes the physical robot to a joint limit/collision and an error gets thrown.
+
 ### Running the environment test
 1. Run the simulation for a premade position URDF (positions 1-7 are currently added) \
 `roslaunch end_effector_control demo.launch setup:=bmi_p#` \
