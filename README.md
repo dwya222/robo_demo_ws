@@ -59,8 +59,8 @@ The ROS packages in the src folder are linked submodules that are also curated o
 ## Running the Code
 ### Run the demo in simulation
   1. `roslaunch end_effector_control demo.launch setup:=staged`
-  1. `roslaunch end_effector_control follow_point_subscriber.py`
-  1. `roslaunch camera main.py`
+  1. `rosrun end_effector_control follow_point_subscriber.py`
+  1. `rosrun camera main.py`
 ### Run the demo on the real panda bot
   1. Prerequisites:
      - April Tag that allows estimation of robot base frame
