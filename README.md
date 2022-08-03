@@ -54,7 +54,7 @@ built on Ubuntu 20.04 using ROS Noetic.
   `git clone --recursive git@github.com:dwya222/robo_demo_ws.git`
   1. Checkout demo version \
   `cd ~/robo_demo_ws` \
-  `git checkout robo-demo-noetic`
+  `git checkout robo-demo-melodic`
   1. Initialize and clone submodules \
   `cd ~/robo_demo_ws` \
   `git submodule update --init --recursive`
@@ -117,7 +117,7 @@ built on Ubuntu 20.04 using ROS Noetic.
   `export Franka_DIR=~/libfranka/build`
   1. Install dependencies and build `robo_demo_ws` using the `libfranka` repo \
   `cd ~/robo_demo_ws` \
-  `rosdep install --from-paths src --ignore-src --rosdistro melodic -y --skip-keys libfranka` \
+  `rosdep install --from-paths src --ignore-src --rosdistro noetic -y --skip-keys libfranka` \
   `catkin build -DCMAKE_BUILD_TYPE=Release -DFranka_DIR:PATH=~/libfranka/build`
   1. Source the workspace \
   `source ~/robo_demo_ws/devel/setup.zsh` \
