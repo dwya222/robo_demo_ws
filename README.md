@@ -143,21 +143,12 @@ built on Ubuntu 20.04 using ROS Noetic.
   1. Hold the trigger (black with gray button) before running the next code
       - Should see the white light turn blue
       - This step cannot be done later, failing to do this step prevents robot from moving
-  1. Run the following ROS code in three separate windows, in this order:
-      1. Render the robot in RViz and connect the simulation to the real Panda via the `robot_ip` parameter. \
-      `roslaunch panda_moveit_config panda_control_moveit_rviz.launch robot_ip:=<fci-ip>`
-      we usually pass parameters:
-      `roslaunch panda_moveit_config panda_control_moveit_rviz.launch robot_ip:=<fci-ip> load_gripper:=true setup:=staged`
-      where fci-ip matches the ip from earlier (172.16.0.2)
-          - load_gripper allows finger control
-          - declaring setup as staged makes the grasping occur in two stages.
-      We should see rviz pop-up with the robot visible
-      2. Launch the subscriber node to listen for goal position location messages. \
-      `rosrun end_effector_control follow_point_subscriber.py`
-          - Won't see anything
-      3. Launch the camera node to start publishing goal position locations according to where it sees the box in its workspace. \
-      `rosrun camera main.py`
-          - We will see the block appear in RViz, followed by a movement simulation, followed by actual movement. The RRT may get stuck if the block is not reachable. Moveit may return a trajectory that takes the physical robot to a joint limit/collision and an error gets thrown.
+  1. Run the following ROS launch command to start the demo: \
+     `roslaunch end_effector_control robo_demo.launch`
+      - We will see the block appear in RViz, followed by a movement simulation, followed by actual
+        movement. The RRT may get stuck if the block is not reachable. Moveit may return a
+        trajectory that takes the physical robot to a joint limit/collision and an error gets
+        thrown.
 
 ### Running the environment test
 1. Run the simulation for a premade position URDF (positions 1-7 are currently added) \
