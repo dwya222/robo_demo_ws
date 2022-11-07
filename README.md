@@ -129,10 +129,12 @@ built on Ubuntu 20.04 using ROS Noetic.
   1. `roslaunch end_effector_control demo.launch setup:=staged`
   1. `rosrun end_effector_control follow_point_subscriber.py`
   1. `rosrun camera main.py`
-### Run the demo on the real panda bot
+### Calibrate and Run the demo on the real panda bot
   1. Prerequisites:
-     - April Tag that allows estimation of robot base frame
-     - Object with April tag calibrated, and URDF in ROS
+     - Intel RealSense camera positioned facing the Panda arm ~1.5 meters away so that it has
+       a good view of the robot workspace.
+     - April Tag attached to the Panda end effector as in the staged_panda.urdf file.
+     - Small box ~(6cm x 6cm x 6cm) with April tag attached to one side
      - Robot in program-op mode (blue light)
   1. Start the robot, wait till lights are yellow solid
   1. Use the browser to  navigate to the Franka control panel
@@ -143,12 +145,18 @@ built on Ubuntu 20.04 using ROS Noetic.
   1. Hold the trigger (black with gray button) before running the next code
       - Should see the white light turn blue
       - This step cannot be done later, failing to do this step prevents robot from moving
+  1. Run the following ROS launch command to start the demo calibration: \
+     `roslaunch end_effector_control calibrate_demo.launch`
+      - The robot will move through 28 poses with the end effector facing forward so that the
+        camera can view the April Tag attached to it. Once the robot stops moving after the 28th
+        pose, the calibration is completed and the process can be terminated (ctrl-c).
+      - NOTE: this step only needs to be completed once after moving the camera to a new position
+      - NOTE: to successfully complete the calibration the camera should be placed ~1.5 meters in
+        front of the robot arm so that it can view all of the calibration poses.
   1. Run the following ROS launch command to start the demo: \
-     `roslaunch end_effector_control robo_demo.launch`
-      - We will see the block appear in RViz, followed by a movement simulation, followed by actual
-        movement. The RRT may get stuck if the block is not reachable. Moveit may return a
-        trajectory that takes the physical robot to a joint limit/collision and an error gets
-        thrown.
+     `roslaunch end_effector_control run_demo.launch`
+      - You should see the block appear in RViz, followed by a movement simulation, followed by
+        actual movement. The RRT may get stuck if the block is not reachable.
 
 ### Running the environment test
 1. Run the simulation for a premade position URDF (positions 1-7 are currently added) \
