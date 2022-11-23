@@ -31,3 +31,6 @@
 [submodule "src/rviz_visual_tools"]
 	path = src/rviz_visual_tools
 	url = git@github.com:dyackzan/rviz_visual_tools.git
+[submodule "src/ompl"]
+	path = src/ompl
+	url = git@github.com:dwya222/ompl.git
