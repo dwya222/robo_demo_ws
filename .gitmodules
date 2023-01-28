@@ -34,3 +34,6 @@
 [submodule "src/ompl"]
 	path = src/ompl
 	url = git@github.com:dwya222/ompl.git
+[submodule "src/robo_demo_msgs"]
+	path = src/robo_demo_msgs
+	url = git@github.com:dwya222/robo_demo_msgs.git
