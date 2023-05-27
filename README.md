@@ -1,25 +1,31 @@
-# Panda Robotic Arm Following Demos Using ROS
+# Panda Robotic Arm Demos Using ROS
 
 ## Table of Contents
 1. [Repo Overview](#repo-overview)
+    * [Parallel Real-Time RRT\* (PRT-RRT\*) Demo Overview](#parallel-real-time-rrt-prt-rrt-demo-overview)
     * [Block Following Demo Overview](#block-following-demo-overview)
     * [Servo Position Control Demo Overview](#servo-position-control-demo-overview)
-    * [Parallel Real-Time RRT\* (PRT-RRT\*) Demo Overview](#parallel-real-time-rrt-prt-rrt-demo-overview)
 2. [Install the Demos](#install-the-demos)
 3. [Run the Demos](#run-the-demos)
+    * [Run the PRT-RRT\* Demo](#run-the-prt-rrt-demo)
     * [Run the Block Following Demo](#run-the-block-following-demo)
     * [Run the Servo Position Control Demo](#run-the-servo-position-control-demo)
-    * [Run the (PRT-RRT\*) Demo](#run-the-prt-rrt-demo)
 
 ## Repo Overview
 This repository is a catkin workspace created to run demos for a real or simulated Franka Emika
 Panda robotic arm using ROS. The ROS packages in the src folder are linked submodules that are also
 curated on this github account. The most recent version is built on Ubuntu 20.04 using ROS Noetic.
 There are 3 demos: the block following demo, the servo position control demo, and the Parallel
-Real-Time RRT* (PRT-RRT\*) demo. \
-**NOTE**: More details on the PRT-RRT\* software design can be found in the pdf in this directory
-named `PRTRRTstar_design.pdf`. The document is an excerpt from the master's thesis: "Parallel Real
-Time RRT\*: An RRT\* Based Path Planning Process".
+Real-Time RRT* (PRT-RRT\*) demo.
+### Parallel Real-Time RRT\* (PRT-RRT\*) Demo Overview
+A sample simulation demo of the PRTRRT\* process. The process controls the robot to an initial goal
+state and then plans and begins to execute to a second goal state. Mid-execution, a wall obstacle
+is added to the environment that obstructs the shortest path between the initial goal state and the
+second goal state. The PRTRRT\* process reroutes the robot arm around the obstacle to the final
+goal state online. \
+More details on the PRT-RRT\* software design can be found in the pdf in this directory named
+`PRTRRTstar_design.pdf`. The document is an excerpt from the master's thesis: [Parallel Real Time
+RRT\*: An RRT\* Based Path Planning Process](https://uknowledge.uky.edu/me_etds/211/).
 ### Block Following Demo Overview
 Once calibrated, a RealSense depth camera takes readings of the position of an April Tag,
 transforms them to the Panda base link frame, and publishes them live to a topic. Another node
@@ -32,13 +38,6 @@ to the position of the April Tag. Initially when the position of the April Tag i
 position will be mapped to the start position of the Panda end effector. Once the camera detects a
 displacement of the April Tag from the start position, the Panda end effector will be controlled to
 mimic that displacement.
-### Parallel Real-Time RRT\* (PRT-RRT\*) Demo Overview
-A sample simulation demo of the PRTRRTstar process. The process controls the robot to an initial
-goal state and then plans and begins to execute to a second goal state. Mid-execution, a wall
-obstacle is added to the environment that obstructs the shortest path between the initial goal
-state and the second goal state. The PRTRRTstar process reroutes the robot arm around the obstacle
-to the final goal state online.
-
 
 ## Install the Demos
 **Note: These instructions assume use of zshell, if you are not using zshell then replace `.zsh`
@@ -50,7 +49,7 @@ with whatever shell you are using (ex: bash -> `.bash`)**
   * Linux OS: Ubuntu `20.04`
   * ROS: `Noetic`
   * Panda system: `v4.0.4`
-  * Libfranka: `0.8.0` (`robo-demo-melodic` branch)
+  * Libfranka: `0.8.0` (`robo-demo-noetic` branch)
     - Compatable Libfranka and Panda system versions: https://frankaemika.github.io/docs/libfranka_changelog.html
   * MoveIt: `1`
   * Franka Ros: `noetic-devel` branch
@@ -100,6 +99,8 @@ with whatever shell you are using (ex: bash -> `.bash`)**
   `echo “source ~/robo_demo_ws/devel/setup.zsh” >> .zshrc`
 
 ## Run the Demos
+### Run the PRT-RRT\* Demo
+  1. `roslaunch end_effector_control PRTRRTstar_demo.launch`
 ### Run the Block Following Demo
 #### Run the demo in simulation with camera hardware in the loop
   1. `roslaunch end_effector_control demo.launch setup:=staged`
@@ -157,5 +158,3 @@ with whatever shell you are using (ex: bash -> `.bash`)**
         position and stop if the April tag goes out of view.
       - NOTE: The demo will use the first position of the box as seen by the camera as the neutral
         point, and any deviation from the neutral point will be mimicked by the end effector.
-### Run the PRT-RRT\* Demo
-  1. `roslaunch end_effector_control PRTRRTstar_demo.launch`
