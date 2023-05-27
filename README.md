@@ -30,8 +30,11 @@ position will be mapped to the start position of the Panda end effector. Once th
 displacement of the April Tag from the start position, the Panda end effector will be controlled to
 mimic that displacement.
 ### Parallel Real-Time RRT\* (PRT-RRT\*) Demo Overview
-**TODO**
-### Test-ing (parens)
+A sample simulation demo of the PRTRRTstar process. The process controls the robot to an initial
+goal state and then plans and begins to execute to a second goal state. Mid-execution, a wall
+obstacle is added to the environment that obstructs the shortest path between the initial goal
+state and the second goal state. The PRTRRTstar process reroutes the robot arm around the obstacle
+to the final goal state online.
 
 
 ## Install the Demos
@@ -152,4 +155,4 @@ with whatever shell you are using (ex: bash -> `.bash`)**
       - NOTE: The demo will use the first position of the box as seen by the camera as the neutral
         point, and any deviation from the neutral point will be mimicked by the end effector.
 ### Run the PRT-RRT\* Demo
-**TODO**
+  1. `roslaunch end_effector_control PRTRRTstar_demo.launch`
