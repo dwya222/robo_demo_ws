@@ -16,7 +16,10 @@ This repository is a catkin workspace created to run demos for a real or simulat
 Panda robotic arm using ROS. The ROS packages in the src folder are linked submodules that are also
 curated on this github account. The most recent version is built on Ubuntu 20.04 using ROS Noetic.
 There are 3 demos: the block following demo, the servo position control demo, and the Parallel
-Real-Time RRT* (PRT-RRT*) demo.
+Real-Time RRT* (PRT-RRT\*) demo. \
+**NOTE**: More details on the PRT-RRT\* software design can be found in the pdf in this directory
+named `PRTRRTstar_design.pdf`. The document is an excerpt from the master's thesis: "Parallel Real
+Time RRT\*: An RRT\* Based Path Planning Process".
 ### Block Following Demo Overview
 Once calibrated, a RealSense depth camera takes readings of the position of an April Tag,
 transforms them to the Panda base link frame, and publishes them live to a topic. Another node
